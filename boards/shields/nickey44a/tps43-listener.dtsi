@@ -1,0 +1,13 @@
+/* Included in each central listener. Each pad tracks its own inertia. */
+#define PAD_ORIENTATION (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)
+#define PAD_MOTION <&tps43_orientation PAD_ORIENTATION>, <&PAD_INERTIA>, <&auto_mouse L_AML 30000>
+input-processors = <&pinch_zoom LC(MINUS) LC(EQUAL)>, PAD_MOTION;
+
+mac {
+    layers = <L_DEFAULT_MAC>;
+    input-processors = <&pinch_zoom LG(MINUS) LG(EQUAL)>,
+                       <&zip_scroll_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>,
+                       PAD_MOTION;
+};
+#undef PAD_MOTION
+#undef PAD_ORIENTATION

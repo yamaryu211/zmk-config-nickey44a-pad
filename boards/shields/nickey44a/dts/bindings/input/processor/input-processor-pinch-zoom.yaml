@@ -1,0 +1,3 @@
+description: Tap the zoom-out or zoom-in shortcut for a signed TPS43 pinch event
+compatible: "zmk,input-processor-pinch-zoom"
+include: ip_two_param.yaml

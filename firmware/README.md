@@ -3,6 +3,10 @@
 配布用ファームウェアをバージョンごとに保管しています。最新版は
 [v1.0.0](v1.0.0/) です。各バージョンに含まれるファイル名は共通です。
 
+## torabo-tsuki 配列・左右トラックパッド用
+
+左側には [nickey44a_l.uf2](torabo-tsuki/nickey44a_l.uf2)、右側には [nickey44a_r.uf2](torabo-tsuki/nickey44a_r.uf2) を書き込む。キー対応とOSの切替手順は[操作ガイド](../docs/dual-tps43.md)を参照。
+
 ## バージョン一覧
 
 | バージョン | 概要 |

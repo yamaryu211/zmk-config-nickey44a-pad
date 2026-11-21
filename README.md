@@ -26,6 +26,8 @@ BOOTHでは、キット版と完成品を取り扱っています。
 
 ## 現在のキーマップ
 
+[torabo-tsuki からのキー対応、接続先の切替、左右トラックパッドの操作](docs/dual-tps43.md)
+
 ![Nickey44A Keymap](keymap-drawer/nickey44a.svg)
 
 ---
@@ -46,6 +48,21 @@ Forkの初回設定や詳しい編集手順は、[キーマップの変更方法
 ---
 
 ## 🛠️ ファームウェアのビルドと書き込み方法 (Flashing)
+
+### zmk-workspace でローカルビルド
+
+このリポジトリと `zmk-workspace` を隣り合わせに置き、`zmk-workspace/config/zmk-config-nickey44a-pad` をこのリポジトリのルートへのシンボリックリンクにする。ワークスペースでの設定切替とビルドは次の手順で行う。
+
+```sh
+cd ../zmk-workspace
+nix develop
+just init config/zmk-config-nickey44a-pad  # 初回、または別のキーボードから切り替えるとき
+just build nickey44a
+```
+
+以降は `just build nickey44a` で左右を再ビルドできる。片側だけなら `just build nickey44a_l` または `just build nickey44a_r`。UF2はワークスペースの `firmware/zmk-config-nickey44a-pad/` に出力される。
+
+### GitHub Actions でビルド
 
 Keymap Editorでの変更をCommit（または `main` ブランチへPush）すると、GitHub Actions がファームウェアを自動ビルドします。完了後、Actions の最新ワークフローから `firmware` をダウンロードしてください。
 

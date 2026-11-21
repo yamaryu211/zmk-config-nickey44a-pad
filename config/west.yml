@@ -6,6 +6,8 @@ manifest:
       url-base: https://github.com/cormoran
     - name: caksoylar  # <-- RGB LED
       url-base: https://github.com/caksoylar
+    - name: yamaryu211
+      url-base: https://github.com/yamaryu211
     - name: geeksville
       url-base: https://github.com/geeksville
   projects:
@@ -19,5 +21,11 @@ manifest:
     - name: zmk_driver_azoteq
       remote: geeksville
       revision: 66d510249d139569a4060c35bd78c6a2159f83ed
+    - name: zmk-feature-default-layer
+      remote: cormoran
+      revision: 9543cc4a3afdf0400ed477a93e6f79b1fb4927e3
+    - name: zmk-input-processor-temp-layer-threshold
+      remote: yamaryu211
+      revision: e7f39d5a61bc697d4f7e9a28212568fbda81d676
   self:
     path: config

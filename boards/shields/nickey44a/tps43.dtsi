@@ -1,0 +1,64 @@
+/*
+ * TPS43 FPC breakout wiring:
+ *   SDA = XIAO NFC1/P0.09
+ *   SCL = XIAO P1.01
+ *   RDY = XIAO P0.15
+ *   NRST = XIAO P0.19
+ */
+
+&uicr {
+    nfct-pins-as-gpios;
+};
+
+&pinctrl {
+    nickey44a_tps43_i2c0_default: nickey44a_tps43_i2c0_default {
+        group1 {
+            psels = <NRF_PSEL(TWIM_SDA, 0, 9)>,
+                    <NRF_PSEL(TWIM_SCL, 1, 1)>;
+        };
+    };
+
+    nickey44a_tps43_i2c0_sleep: nickey44a_tps43_i2c0_sleep {
+        group1 {
+            psels = <NRF_PSEL(TWIM_SDA, 0, 9)>,
+                    <NRF_PSEL(TWIM_SCL, 1, 1)>;
+            low-power-enable;
+        };
+    };
+};
+
+&i2c0 {
+    status = "okay";
+    compatible = "nordic,nrf-twim";
+    pinctrl-0 = <&nickey44a_tps43_i2c0_default>;
+    pinctrl-1 = <&nickey44a_tps43_i2c0_sleep>;
+    pinctrl-names = "default", "sleep";
+    clock-frequency = <I2C_BITRATE_STANDARD>;
+    #address-cells = <1>;
+    #size-cells = <0>;
+
+    tps43: tps43@74 {
+        compatible = "azoteq,tps43";
+        reg = <0x74>;
+        rst-gpios = <&gpio0 19 GPIO_ACTIVE_HIGH>;
+        rdy-gpios = <&gpio0 15 GPIO_ACTIVE_HIGH>;
+
+        single-tap;
+        two-finger-tap;
+        scroll;
+        zoom;
+        zoom-consecutive-distance = <80>;
+        /* Physical right -> negative HWHEEL after orientation (natural scrolling). */
+        invert-scroll-y;
+
+        filter-settings = <0x0B>;
+        filter-dynamic-bottom = <5>;
+        sensitivity = <100>;
+        scroll-sensitivity = <5>;
+        enable-power-management;
+        /* Controller settings used when the listener's correction was measured. */
+        switch-xy;
+        invert-x;
+    };
+};
+

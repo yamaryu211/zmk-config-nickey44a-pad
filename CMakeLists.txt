@@ -1,3 +1,6 @@
 # Bundled until the standalone touch-inertia module is published and SHA-pinned.
 add_subdirectory(modules/zmk-input-processor-touch-inertia)
 add_subdirectory(modules/zmk-input-processor-touch-swipe)
+if(CONFIG_DT_HAS_ZMK_INPUT_PROCESSOR_PINCH_ZOOM_ENABLED)
+  target_sources(app PRIVATE src/pinch_zoom.c)
+endif()
