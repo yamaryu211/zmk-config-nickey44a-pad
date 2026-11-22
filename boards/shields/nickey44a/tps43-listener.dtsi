@@ -5,7 +5,8 @@
 #define PAD_AML
 #endif
 #define PAD_ORIENTATION (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)
-#define PAD_MOTION <&tps43_orientation PAD_ORIENTATION>, <&PAD_INERTIA> PAD_AML
+#define PAD_MOTION <&tps43_orientation PAD_ORIENTATION>, <&PAD_MOUSE>, <&PAD_SCROLL>, \
+                   <&PAD_INERTIA> PAD_AML
 input-processors = <&pinch_zoom LC(MINUS) LC(EQUAL)>, PAD_MOTION;
 
 mac {

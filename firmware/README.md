@@ -5,7 +5,7 @@
 
 ## torabo-tsuki 配列・左右トラックパッド用
 
-左側には [nickey44a_l.uf2](torabo-tsuki/nickey44a_l.uf2)、右側には [nickey44a_r.uf2](torabo-tsuki/nickey44a_r.uf2) を書き込む。キー対応とOSの切替手順は[操作ガイド](../docs/dual-tps43.md)を参照。
+この配列版は Zephyr 4.1.0 と DYA Studio に対応。左側には [nickey44a_l.uf2](torabo-tsuki/nickey44a_l.uf2)、右側には [nickey44a_r.uf2](torabo-tsuki/nickey44a_r.uf2) を書き込む。[DYA Studio の接続方法](../README.md#dya-studio-で実機の設定を変更する)と[キー・トラックパッドの操作ガイド](../docs/dual-tps43.md)を参照。
 
 ## バージョン一覧
 

@@ -30,6 +30,18 @@ BOOTHでは、キット版と完成品を取り扱っています。
 
 ![Nickey44A Keymap](keymap-drawer/nickey44a.svg)
 
+## DYA Studio で実機の設定を変更する
+
+torabo-tsuki 配列版は Zephyr 4.1.0 と DYA Studio 対応の ZMK を使用します。
+
+1. 左右に対応する UF2 を書き込み、右手側をデータ通信対応の USB ケーブルで PC に接続します。
+2. PC の Chrome または Edge で [DYA Studio](https://studio.dya.cormoran.works/) を開き、USB 接続で Nickey を選びます。
+3. キーボードで Enter を長押しし、そのまま Backspace も長押しして Q を押すと、Studio の編集ロックが解除されます。USB 出力に切り替えるときは同じ設定レイヤーで R を押します。
+
+キー割り当て、追加のコンボ・マクロ、接続先別の既定レイヤーを設定できます。トラックパッドは `lmouse`・`rmouse` が左右のカーソル、`lscroll`・`rscroll` が左右のスクロールです。それぞれ独立して感度を調整できます。
+
+旧版からの更新では、接続先ごとの Windows / Mac 配列の保存先が変わります。各接続先で設定レイヤーの W（Windows）または E（Mac）を押すと、新しい保存先に記録されます。
+
 ---
 
 ## ⌨️ キーマップの変更方法 (Keymap Editor)
@@ -61,6 +73,15 @@ just build nickey44a
 ```
 
 以降は `just build nickey44a` で左右を再ビルドできる。片側だけなら `just build nickey44a_l` または `just build nickey44a_r`。UF2はワークスペースの `firmware/zmk-config-nickey44a-pad/` に出力される。
+
+既にこの Nickey を選択済みのワークスペースを旧版から移行する場合は、`nix develop` 内で次を実行する。設定リセット用を含む3つの UF2 を新しい依存関係でビルドする。
+
+```sh
+just update
+just build all -p
+```
+
+書き込みは片側ずつ行う。左手側だけを USB 接続してブートローダーモードにし、`just flash nickey44a_l` を実行する。左を外し、右手側で同じ操作をして `just flash nickey44a_r` を実行する。
 
 ### GitHub Actions でビルド
 

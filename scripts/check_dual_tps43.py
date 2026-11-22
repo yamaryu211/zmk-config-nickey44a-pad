@@ -35,15 +35,23 @@ def main():
     for cfg, build in ((lc, args.left_build), (rc, args.right_build)):
         for name in ("GPIO", "I2C", "INPUT", "ZMK_POINTING", "INPUT_TPS43",
                      "ZMK_INPUT_SPLIT", "ZMK_SPLIT", "ZMK_SLEEP",
-                     "ZMK_BATTERY_REPORTING"):
+                     "ZMK_BATTERY_REPORTING", "ZMK_CUSTOM_SETTINGS_SPLIT_RPC_RELAY",
+                     "ZMK_KSCAN_DIAGNOSTICS", "ZMK_WATCHDOG"):
             assert cfg.get("CONFIG_" + name) == "y", name
         assert (build / "zephyr/zmk.uf2").is_file(), "Missing firmware"
     assert lc.get("CONFIG_ZMK_SPLIT_ROLE_CENTRAL") != "y"
     assert rc.get("CONFIG_ZMK_SPLIT_ROLE_CENTRAL") == "y"
     assert rc.get("CONFIG_ZMK_INPUT_LISTENER") == "y"
     for name in ("ZMK_SPLIT_BLE_CENTRAL_BATTERY_LEVEL_PROXY",
-                 "ZMK_SPLIT_BLE_CENTRAL_BATTERY_LEVEL_FETCHING", "ZMK_STUDIO"):
+                 "ZMK_SPLIT_BLE_CENTRAL_BATTERY_LEVEL_FETCHING", "ZMK_STUDIO",
+                 "ZMK_STUDIO_TRANSPORT_UART", "ZMK_STUDIO_TRANSPORT_BLE", "USB_CDC_ACM",
+                 "ZMK_BEHAVIOR_LOCAL_ID_TYPE_SETTINGS_TABLE", "ZMK_SETTINGS_RPC_STUDIO"):
         assert rc.get("CONFIG_" + name) == "y", name
+    for feature in ("RUNTIME_COMBO", "RUNTIME_MACRO", "RUNTIME_INPUT_PROCESSOR",
+                    "BLE_MANAGEMENT", "DEFAULT_LAYER", "OS_DETECTION", "CUSTOM_SETTINGS",
+                    "DEVICE_INFO", "KSCAN_DIAGNOSTICS", "INPUT_STREAM_FEATURE", "WATCHDOG"):
+        assert rc.get("CONFIG_ZMK_" + feature + "_STUDIO_RPC") == "y", feature
+    assert right.label2node["rmacro"].props["#binding-cells"].to_num() == 1
 
     def phandle(node):
         return node.props["phandle"].to_num()
@@ -85,10 +93,18 @@ def main():
     assert ls.props["reg"].to_num() == rs.props["reg"].to_num() == 0
     assert ls.props["device"].to_node() is left.label2node["tps43"]
     assert "device" not in rs.props and "input-processors" not in ls.props
-    for listener, device, inertia in (
-        ("left_tps43_listener", rs, "left_tps43_inertia"),
-        ("tps43_listener", right.label2node["tps43"], "tps43_touch_inertia"),
+    for side, listener, device, inertia in (
+        ("left", "left_tps43_listener", rs, "left_tps43_inertia"),
+        ("right", "tps43_listener", right.label2node["tps43"], "tps43_touch_inertia"),
     ):
+        filters = []
+        for motion, x_code, y_code in (("mouse", 0, 1), ("scroll", 6, 8)):
+            name = f"{side}_{motion}"
+            props = right.label2node[name].props
+            assert props["processor-label"].to_string() == side[0] + motion
+            assert props["x-codes"].to_nums() == [x_code]
+            assert props["y-codes"].to_nums() == [y_code]
+            filters.append((name, []))
         node = right.label2node[listener]
         assert node.props["device"].to_node() is device
         mac = node.nodes["mac"]
@@ -98,7 +114,7 @@ def main():
             expected = [("pinch_zoom", [mods | 0x7002d, mods | 0x7002e])]
             if mode is mac:
                 expected.append(("zip_scroll_transform", [6]))
-            expected.extend([("tps43_orientation", [7]), (inertia, [])])
+            expected.extend([("tps43_orientation", [7]), *filters, (inertia, [])])
             if args.aml:
                 expected.append(("auto_mouse", [8, 30000]))
             assert [(n.name, params) for n, params in chain] == expected
@@ -138,6 +154,7 @@ def main():
                          "middle_click_alt": [34, 35]}
     print("PASS: both firmware images, pins, taps, scroll, zoom and split routing")
     print("PASS: Windows/Mac shortcuts and scroll transforms on both pads")
+    print("PASS: DYA Studio USB/BLE configuration, RPC features and per-pad filters")
     print("PASS: 17 layers, 44 bindings each, unused positions and six combos")
 
 

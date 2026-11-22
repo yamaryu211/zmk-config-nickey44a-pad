@@ -1,6 +1,6 @@
 #include "nickey44a.dtsi"
 #include <input/processors.dtsi>
-#include <dt-bindings/pinctrl/nrf-pinctrl.h>
+#include <zephyr/dt-bindings/pinctrl/nrf-pinctrl.h>
 #include <dt-bindings/zmk/input_transform.h>
 #include <dt-bindings/zmk/keys.h>
 #include <zephyr/dt-bindings/input/input-event-codes.h>
@@ -40,6 +40,24 @@
         excluded-positions = <19 20 34 35 39 40>; // J K , . Delete Space
     };
 
+    /* Runtime filters have per-device motion history. Keep the two pads independent. */
+#define PAD_FILTER(node, id_string, x_code, y_code)     \
+    node: node {                                        \
+        compatible = "zmk,input-processor-runtime";     \
+        #input-processor-cells = <0>;                   \
+        processor-label = id_string;                    \
+        type = <INPUT_EV_REL>;                          \
+        x-codes = <x_code>;                             \
+        y-codes = <y_code>;                             \
+        track-remainders;                               \
+    };
+
+    PAD_FILTER(left_mouse, "lmouse", INPUT_REL_X, INPUT_REL_Y)
+    PAD_FILTER(left_scroll, "lscroll", INPUT_REL_HWHEEL, INPUT_REL_WHEEL)
+    PAD_FILTER(right_mouse, "rmouse", INPUT_REL_X, INPUT_REL_Y)
+    PAD_FILTER(right_scroll, "rscroll", INPUT_REL_HWHEEL, INPUT_REL_WHEEL)
+#undef PAD_FILTER
+
     tps43_touch_inertia: tps43_touch_inertia {
 #include "tps43-inertia.dtsi"
     };
@@ -51,17 +69,25 @@
     left_tps43_listener: left_tps43_listener {
         compatible = "zmk,input-listener";
         device = <&left_tps43_split>;
+#define PAD_MOUSE left_mouse
+#define PAD_SCROLL left_scroll
 #define PAD_INERTIA left_tps43_inertia
 #include "tps43-listener.dtsi"
 #undef PAD_INERTIA
+#undef PAD_MOUSE
+#undef PAD_SCROLL
     };
 
     tps43_listener: tps43_listener {
         compatible = "zmk,input-listener";
         device = <&tps43>;
+#define PAD_MOUSE right_mouse
+#define PAD_SCROLL right_scroll
 #define PAD_INERTIA tps43_touch_inertia
 #include "tps43-listener.dtsi"
 #undef PAD_INERTIA
+#undef PAD_MOUSE
+#undef PAD_SCROLL
     };
 };
 

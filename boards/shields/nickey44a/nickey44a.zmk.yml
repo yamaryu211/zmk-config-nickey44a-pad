@@ -3,6 +3,8 @@ id: nickey44a-pad
 name: Nickey44A-PAD
 type: shield
 url: https://github.com/nixiy/zmk-config-nickey44a
-requires: [seeeduino_xiao_ble]
+requires: [seeed_xiao]
 features:
   - keys
+  - pointer
+  - studio
