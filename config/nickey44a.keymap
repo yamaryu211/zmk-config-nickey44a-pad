@@ -235,7 +235,7 @@
             bindings = <
             &trans  &studio_unlock  &df DF_SEL L_DEFAULT_WIN  &df DF_SEL L_DEFAULT_MAC  &out OUT_TOG  &trans                           &kp C_BRIGHTNESS_DEC  &kp C_BRIGHTNESS_INC  &kp K_MUTE  &kp C_VOLUME_DOWN  &kp C_VOLUME_UP  &trans
             &trans  &trans          &trans                    &trans                    &trans        &trans                           &bt0_win              &bt1_mac              &bt2_iPad   &bt3_iPhone        &bt4_iPadMini    &trans
-            &trans  &trans          &trans                    &trans                    &trans        &trans  &none      &none         &trans                &trans                &trans      &trans             &bt BT_CLR       &trans
+            &bootloader  &trans          &trans                    &trans                    &trans        &trans  &none      &none         &trans                &trans                &trans      &trans             &bt BT_CLR       &bootloader
                                                                                        &trans        &trans  &trans     &out OUT_TOG  &trans                &none
             >;
         };

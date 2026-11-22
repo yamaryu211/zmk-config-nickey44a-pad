@@ -430,7 +430,7 @@ layers:
   - '&bt3_iPhone'
   - '&bt4_iPadMini'
   - {t: ▽, type: trans}
-  - {type: held}
+  - {t: '&bootloader', type: held}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -443,7 +443,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - BT CLR
-  - {t: ▽, type: trans}
+  - '&bootloader'
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}

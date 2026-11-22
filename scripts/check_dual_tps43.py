@@ -125,7 +125,8 @@ def main():
                 assert keys[idx] == (right.label2node[label], params), (layer.name, idx)
         else:
             for idx in (0, 11, 12, 23, 24, 37):
-                assert keys[idx][0] is right.label2node["trans"], (layer.name, idx)
+                label = "bootloader" if layer.name == "kbd_setting" and idx in (24, 37) else "trans"
+                assert keys[idx] == (right.label2node[label], []), (layer.name, idx)
         for idx in (30, 31, 43):
             assert keys[idx][0] is right.label2node["none"], (layer.name, idx)
     positions = {c.name: c.props["key-positions"].to_nums()
