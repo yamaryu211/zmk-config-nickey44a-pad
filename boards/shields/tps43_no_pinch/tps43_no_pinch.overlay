@@ -1,0 +1,4 @@
+/* Compare native two-finger scroll with the IQS572 pinch recognizer disabled. */
+&tps43 {
+    /delete-property/ zoom;
+};

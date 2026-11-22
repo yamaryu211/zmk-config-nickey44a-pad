@@ -16,6 +16,7 @@ def main():
     parser.add_argument("--zephyr-base", required=True, type=Path)
     parser.add_argument("--left-build", required=True, type=Path)
     parser.add_argument("--right-build", required=True, type=Path)
+    parser.add_argument("--no-pinch", action="store_true", help="check the sensor A/B build")
     parser.add_argument("--aml", action="store_true", help="expect the optional auto mouse layer")
     args = parser.parse_args()
     sys.path.insert(0, str(args.zephyr_base / "scripts/dts/python-devicetree/src"))
@@ -83,9 +84,10 @@ def main():
                             assert candidate is pad
                 if prop.name == "psels":
                     assert all(v & 0x1ff not in (15, 19) for v in prop.to_nums())
-        for setting in ("single-tap", "two-finger-tap", "scroll", "zoom",
+        for setting in ("single-tap", "two-finger-tap", "scroll",
                         "enable-power-management", "switch-xy", "invert-x", "invert-scroll-y"):
             assert setting in pad.props, setting
+        assert ("zoom" in pad.props) == (not args.no_pinch)
         assert not {"swipes", "press-and-hold", "invert-scroll-x"} & pad.props.keys()
         assert pad.props["tap-time"].to_num() == 150
         assert pad.props["scroll-initial-distance"].to_num() == 24

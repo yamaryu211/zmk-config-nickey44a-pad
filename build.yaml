@@ -28,3 +28,10 @@ include:
   - board: xiao_ble//zmk
     shield: settings_reset
     artifact-name: settings_reset
+  - board: xiao_ble//zmk
+    shield: nickey44a_l rgbled_adapter tps43_no_pinch
+    artifact-name: no_pinch_l
+  - board: xiao_ble//zmk
+    shield: nickey44a_r rgbled_adapter tps43_no_pinch
+    snippet: studio-rpc-usb-uart
+    artifact-name: no_pinch_r
