@@ -2,7 +2,14 @@
 
 ## キーの対応
 
-移植元は [torabo-tsuki LP の `yamaryu211_main`（e45ba15）](https://github.com/yamaryu211/zmk-keyboard-torabo-tsuki-lp/blob/e45ba157f6ef610b51c636ebd35506437945f9b1/config/keymap.keymap) の S 配列。上3段は Q〜T・Y〜P の列を基準に合わせた。左右の外側6キー、Bの右とNの左、右親指列の右端は全レイヤーで無割り当て。torabo の3段目中央2キーは除外した。
+移植元は [torabo-tsuki LP の `yamaryu211_main`（e45ba15）](https://github.com/yamaryu211/zmk-keyboard-torabo-tsuki-lp/blob/e45ba157f6ef610b51c636ebd35506437945f9b1/config/keymap.keymap) の S 配列。上3段は Q〜T・Y〜P の列を基準に合わせた。Bの右とNの左、右親指列の右端は全レイヤーで無割り当て。torabo の3段目中央2キーは除外した。
+
+| 外側の列 | 左手 | 右手 |
+|---|---|---|
+| 上段 | Esc | Backspace |
+| 中段 | 左Command（Mac）／左Control（Windows） | Enter |
+| 下段・短押し | 言語2 | 言語1 |
+| 下段・長押し | 使用中のOSの数字レイヤー | 使用中のOSのファンクションレイヤー |
 
 | 最下段を左から | 左1 | 左2 | 左3 | 右1 | 右2 | 右3 |
 |---|---|---|---|---|---|---|

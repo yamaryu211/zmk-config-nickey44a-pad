@@ -141,9 +141,9 @@
         default_win {
             display-name = "DEFAULT_WIN";
             bindings = <
-            &none  &kp Q         &kp W  &kp E  &kp R         &kp T                                                   &kp Y            &kp U  &kp I      &kp O       &kp P             &none
-            &none  &kp A         &kp S  &kp D  &kp F         &kp G                                                   &kp H            &kp J  &kp K      &lt 10 L    &lt 12 MINUS      &none
-            &none  &mt RSHIFT Z  &kp X  &kp C  &kp V         &kp B             &none                    &none        &kp N            &kp M  &kp COMMA  &kp PERIOD  &mt RSHIFT SLASH  &none
+            &kp ESCAPE                &kp Q         &kp W  &kp E  &kp R         &kp T                                                   &kp Y            &kp U  &kp I      &kp O       &kp P             &kp BACKSPACE
+            &kp LEFT_CONTROL          &kp A         &kp S  &kp D  &kp F         &kp G                                                   &kp H            &kp J  &kp K      &lt 10 L    &lt 12 MINUS      &kp ENTER
+            &lt L_NUM_WIN LANGUAGE_2  &mt RSHIFT Z  &kp X  &kp C  &kp V         &kp B             &none                    &none        &kp N            &kp M  &kp COMMA  &kp PERIOD  &mt RSHIFT SLASH  &lt L_FUNC_SCROLL_WIN LANGUAGE_1
                                                &kp LEFT_ALT  &mt LCTRL DELETE  &mt LEFT_SHIFT SPACE     &lt 2 ENTER  &lt 4 BACKSPACE  &none
             >;
         };
@@ -151,9 +151,9 @@
         default_mac {
             display-name = "DEFAULT_MAC";
             bindings = <
-            &none  &kp Q         &kp W  &kp E  &kp R         &kp T                                                          &kp Y            &kp U  &kp I      &kp O       &kp P             &none
-            &none  &kp A         &kp S  &kp D  &kp F         &kp G                                                          &kp H            &kp J  &kp K      &lt 11 L    &lt 13 MINUS      &none
-            &none  &mt RSHIFT Z  &kp X  &kp C  &kp V         &kp B                    &none                    &none        &kp N            &kp M  &kp COMMA  &kp PERIOD  &mt RSHIFT SLASH  &none
+            &kp ESCAPE                &kp Q         &kp W  &kp E  &kp R         &kp T                                                          &kp Y            &kp U  &kp I      &kp O       &kp P             &kp BACKSPACE
+            &kp LEFT_COMMAND          &kp A         &kp S  &kp D  &kp F         &kp G                                                          &kp H            &kp J  &kp K      &lt 11 L    &lt 13 MINUS      &kp ENTER
+            &lt L_NUM_MAC LANGUAGE_2  &mt RSHIFT Z  &kp X  &kp C  &kp V         &kp B                    &none                    &none        &kp N            &kp M  &kp COMMA  &kp PERIOD  &mt RSHIFT SLASH  &lt L_FUNC_SCROLL_MAC LANGUAGE_1
                                                &kp LEFT_ALT  &mt LEFT_COMMAND DELETE  &mt LEFT_SHIFT SPACE     &lt 3 ENTER  &lt 5 BACKSPACE  &none
             >;
         };
@@ -161,9 +161,9 @@
         num_win {
             display-name = "NUM_WIN";
             bindings = <
-            &none  &sys_reset    &kp NUMBER_7  &kp NUMBER_8  &kp NUMBER_9      &lt L_FUNC_SCROLL_WIN LANGUAGE_1                     &kp LG(LS(LEFT))   &kp LG(DOWN)   &kp LG(UP_ARROW)  &kp LG(LS(RIGHT))  &kp LG(TAB)    &none
-            &none  &none         &kp NUMBER_4  &kp NUMBER_5  &kp NUMBER_6      &kp LANGUAGE_2                                       &kp LEFT           &kp DOWN       &kp UP            &kp RIGHT          &kp LS(EQUAL)  &none
-            &none  &kp NUMBER_0  &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3      &none                             &none      &none   &kp HOME           &kp PAGE_DOWN  &kp PAGE_UP       &kp END            &kp ASTERISK   &none
+            &trans  &sys_reset    &kp NUMBER_7  &kp NUMBER_8  &kp NUMBER_9      &lt L_FUNC_SCROLL_WIN LANGUAGE_1                     &kp LG(LS(LEFT))   &kp LG(DOWN)   &kp LG(UP_ARROW)  &kp LG(LS(RIGHT))  &kp LG(TAB)    &trans
+            &trans  &none         &kp NUMBER_4  &kp NUMBER_5  &kp NUMBER_6      &kp LANGUAGE_2                                       &kp LEFT           &kp DOWN       &kp UP            &kp RIGHT          &kp LS(EQUAL)  &trans
+            &trans  &kp NUMBER_0  &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3      &none                             &none      &none   &kp HOME           &kp PAGE_DOWN  &kp PAGE_UP       &kp END            &kp ASTERISK   &trans
                                                              &kp LS(LEFT_ALT)  &kp LS(LEFT_CONTROL)              &trans     &trans  &mo L_KBD_SETTING  &none
             >;
         };
@@ -171,9 +171,9 @@
         num_mac {
             display-name = "NUM_MAC";
             bindings = <
-            &none  &sys_reset  &kp N7  &kp N8  &kp N9            &lt L_FUNC_SCROLL_MAC LANGUAGE_1                     &kp LC(LA(LG(LEFT)))  &kp LC(DOWN)  &kp LC(UP_ARROW)  &kp LC(LA(LG(RIGHT)))  &kp LC(LA(ENTER))  &none
-            &none  &none       &kp N4  &kp N5  &kp N6            &kp LANGUAGE_2                                       &kp LEFT              &kp DOWN      &kp UP            &kp RIGHT              &kp LS(EQUAL)      &none
-            &none  &kp N0      &kp N1  &kp N2  &kp N3            &none                             &none      &none   &kp LG(LEFT)          &kp LG(DOWN)  &kp LG(UP)        &kp LG(RIGHT)          &kp ASTERISK       &none
+            &trans  &sys_reset  &kp N7  &kp N8  &kp N9            &lt L_FUNC_SCROLL_MAC LANGUAGE_1                     &kp LC(LA(LG(LEFT)))  &kp LC(DOWN)  &kp LC(UP_ARROW)  &kp LC(LA(LG(RIGHT)))  &kp LC(LA(ENTER))  &trans
+            &trans  &none       &kp N4  &kp N5  &kp N6            &kp LANGUAGE_2                                       &kp LEFT              &kp DOWN      &kp UP            &kp RIGHT              &kp LS(EQUAL)      &trans
+            &trans  &kp N0      &kp N1  &kp N2  &kp N3            &none                             &none      &none   &kp LG(LEFT)          &kp LG(DOWN)  &kp LG(UP)        &kp LG(RIGHT)          &kp ASTERISK       &trans
                                                &kp LS(LEFT_ALT)  &kp LS(LEFT_GUI)                  &trans     &trans  &mo L_KBD_SETTING     &none
             >;
         };
@@ -181,9 +181,9 @@
         symbol_win {
             display-name = "SYMBOL_WIN";
             bindings = <
-            &none  &kp SQT      &kp DOUBLE_QUOTES  &kp EXCLAMATION  &kp QUESTION      &kp TILDE                            &kp BACKSLASH  &kp LEFT_BRACE        &kp RIGHT_BRACE        &trans    &kp PERCENT  &none
-            &none  &kp AT_SIGN  &kp SEMICOLON      &kp DOLLAR       &kp LESS_THAN     &kp GREATER_THAN                     &kp HASH       &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp PIPE  &kp EQUAL    &none
-            &none  &trans       &kp ASTERISK       &kp COLON        &kp CARET         &kp GRAVE         &none      &none   &kp AMPERSAND  &kp LEFT_BRACKET      &kp RIGHT_BRACKET      &trans    &trans       &none
+            &trans  &kp SQT      &kp DOUBLE_QUOTES  &kp EXCLAMATION  &kp QUESTION      &kp TILDE                            &kp BACKSLASH  &kp LEFT_BRACE        &kp RIGHT_BRACE        &trans    &kp PERCENT  &trans
+            &trans  &kp AT_SIGN  &kp SEMICOLON      &kp DOLLAR       &kp LESS_THAN     &kp GREATER_THAN                     &kp HASH       &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp PIPE  &kp EQUAL    &trans
+            &trans  &trans       &kp ASTERISK       &kp COLON        &kp CARET         &kp GRAVE         &none      &none   &kp AMPERSAND  &kp LEFT_BRACKET      &kp RIGHT_BRACKET      &trans    &trans       &trans
                                                                     &kp LS(LEFT_ALT)  &kp LS(LCTRL)     &trans     &trans  &trans         &none
             >;
         };
@@ -191,9 +191,9 @@
         symbol_mac {
             display-name = "SYMBOL_MAC";
             bindings = <
-            &none  &kp SQT      &kp DOUBLE_QUOTES  &kp EXCLAMATION  &kp QUESTION      &kp TILDE                            &kp BACKSLASH  &kp LEFT_BRACE        &kp RIGHT_BRACE        &trans    &kp PERCENT  &none
-            &none  &kp AT_SIGN  &kp SEMICOLON      &kp DOLLAR       &kp LESS_THAN     &kp GREATER_THAN                     &kp HASH       &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp PIPE  &kp EQUAL    &none
-            &none  &trans       &kp ASTERISK       &kp COLON        &kp CARET         &kp GRAVE         &none      &none   &kp AMPERSAND  &kp LEFT_BRACKET      &kp RIGHT_BRACKET      &trans    &trans       &none
+            &trans  &kp SQT      &kp DOUBLE_QUOTES  &kp EXCLAMATION  &kp QUESTION      &kp TILDE                            &kp BACKSLASH  &kp LEFT_BRACE        &kp RIGHT_BRACE        &trans    &kp PERCENT  &trans
+            &trans  &kp AT_SIGN  &kp SEMICOLON      &kp DOLLAR       &kp LESS_THAN     &kp GREATER_THAN                     &kp HASH       &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp PIPE  &kp EQUAL    &trans
+            &trans  &trans       &kp ASTERISK       &kp COLON        &kp CARET         &kp GRAVE         &none      &none   &kp AMPERSAND  &kp LEFT_BRACKET      &kp RIGHT_BRACKET      &trans    &trans       &trans
                                                                     &kp LS(LEFT_ALT)  &kp LS(LEFT_GUI)  &trans     &trans  &trans         &none
             >;
         };
@@ -201,9 +201,9 @@
         func_scroll_win {
             display-name = "FUNC_SCROLL_WIN";
             bindings = <
-            &none  &kp F12  &kp F7      &kp F8  &kp F9  &none                      &none   &kp LC(PAGE_UP)  &kp LC(PAGE_DOWN)  &none  &kp LS(LG(S))  &none
-            &none  &kp F11  &kp F4      &kp F5  &kp F6  &none                      &none   &kp LS(LC(TAB))  &kp LC(TAB)        &none  &none          &none
-            &none  &kp F10  &kp LC(F1)  &kp F2  &kp F3  &none   &none      &none   &none   &kp LA(LEFT)     &kp LA(RIGHT)      &none  &none          &none
+            &trans  &kp F12  &kp F7      &kp F8  &kp F9  &none                      &none   &kp LC(PAGE_UP)  &kp LC(PAGE_DOWN)  &none  &kp LS(LG(S))  &trans
+            &trans  &kp F11  &kp F4      &kp F5  &kp F6  &none                      &none   &kp LS(LC(TAB))  &kp LC(TAB)        &none  &none          &trans
+            &trans  &kp F10  &kp LC(F1)  &kp F2  &kp F3  &none   &none      &none   &none   &kp LA(LEFT)     &kp LA(RIGHT)      &none  &none          &trans
                                                 &trans  &trans  &trans     &trans  &trans  &none
             >;
         };
@@ -211,9 +211,9 @@
         func_scroll_mac {
             display-name = "FUNC_SCROLL_MAC";
             bindings = <
-            &none  &kp F12  &kp F7      &kp F8  &kp F9  &none                      &none   &kp LG(PAGE_UP)  &kp LG(PAGE_DOWN)  &none  &kp LS(LG(NUMBER_4))  &none
-            &none  &kp F11  &kp F4      &kp F5  &kp F6  &none                      &none   &kp LS(LC(TAB))  &kp LC(TAB)        &none  &none                 &none
-            &none  &kp F10  &kp LG(F1)  &kp F2  &kp F3  &none   &none      &none   &none   &kp LG(LEFT)     &kp LG(RIGHT)      &none  &none                 &none
+            &trans  &kp F12  &kp F7      &kp F8  &kp F9  &none                      &none   &kp LG(PAGE_UP)  &kp LG(PAGE_DOWN)  &none  &kp LS(LG(NUMBER_4))  &trans
+            &trans  &kp F11  &kp F4      &kp F5  &kp F6  &none                      &none   &kp LS(LC(TAB))  &kp LC(TAB)        &none  &none                 &trans
+            &trans  &kp F10  &kp LG(F1)  &kp F2  &kp F3  &none   &none      &none   &none   &kp LG(LEFT)     &kp LG(RIGHT)      &none  &none                 &trans
                                                 &trans  &trans  &trans     &trans  &trans  &none
             >;
         };
@@ -221,9 +221,9 @@
         aml {
             display-name = "AML";
             bindings = <
-            &none  &trans  &trans  &trans  &trans  &trans                     &trans  &trans    &trans    &trans    &trans  &none
-            &none  &trans  &trans  &trans  &trans  &trans                     &trans  &mkp MB1  &mkp MB2  &trans    &trans  &none
-            &none  &trans  &trans  &trans  &trans  &trans  &none      &none   &trans  &trans    &mkp MB1  &mkp MB2  &trans  &none
+            &trans  &trans  &trans  &trans  &trans  &trans                     &trans  &trans    &trans    &trans    &trans  &trans
+            &trans  &trans  &trans  &trans  &trans  &trans                     &trans  &mkp MB1  &mkp MB2  &trans    &trans  &trans
+            &trans  &trans  &trans  &trans  &trans  &trans  &none      &none   &trans  &trans    &mkp MB1  &mkp MB2  &trans  &trans
                                            &trans  &trans  &trans     &trans  &trans  &none
             >;
         };
@@ -231,9 +231,9 @@
         kbd_setting {
             display-name = "KBD_SETTING";
             bindings = <
-            &none  &studio_unlock  &df DF_SEL L_DEFAULT_WIN  &df DF_SEL L_DEFAULT_MAC  &out OUT_TOG  &trans                           &kp C_BRIGHTNESS_DEC  &kp C_BRIGHTNESS_INC  &kp K_MUTE  &kp C_VOLUME_DOWN  &kp C_VOLUME_UP  &none
-            &none  &trans          &trans                    &trans                    &trans        &trans                           &bt0_win              &bt1_mac              &bt2_iPad   &bt3_iPhone        &bt4_iPadMini    &none
-            &none  &trans          &trans                    &trans                    &trans        &trans  &none      &none         &trans                &trans                &trans      &trans             &bt BT_CLR       &none
+            &trans  &studio_unlock  &df DF_SEL L_DEFAULT_WIN  &df DF_SEL L_DEFAULT_MAC  &out OUT_TOG  &trans                           &kp C_BRIGHTNESS_DEC  &kp C_BRIGHTNESS_INC  &kp K_MUTE  &kp C_VOLUME_DOWN  &kp C_VOLUME_UP  &trans
+            &trans  &trans          &trans                    &trans                    &trans        &trans                           &bt0_win              &bt1_mac              &bt2_iPad   &bt3_iPhone        &bt4_iPadMini    &trans
+            &trans  &trans          &trans                    &trans                    &trans        &trans  &none      &none         &trans                &trans                &trans      &trans             &bt BT_CLR       &trans
                                                                                        &trans        &trans  &trans     &out OUT_TOG  &trans                &none
             >;
         };
@@ -241,9 +241,9 @@
         scroll_ver_win {
             display-name = "SCROLL_VER_WIN";
             bindings = <
-            &none  &kp F12  &kp F7      &kp F8  &kp F9  &trans                     &none   &kp LC(PAGE_UP)  &kp LC(PAGE_DOWN)  &trans  &kp LS(LG(S))  &none
-            &none  &kp F11  &kp F4      &kp F5  &kp F6  &trans                     &trans  &kp LS(LC(TAB))  &kp LC(TAB)        &trans  &trans         &none
-            &none  &kp F10  &kp LC(F1)  &kp F2  &kp F3  &trans  &none      &none   &trans  &kp LA(LEFT)     &kp LA(RIGHT)      &trans  &trans         &none
+            &trans  &kp F12  &kp F7      &kp F8  &kp F9  &trans                     &none   &kp LC(PAGE_UP)  &kp LC(PAGE_DOWN)  &trans  &kp LS(LG(S))  &trans
+            &trans  &kp F11  &kp F4      &kp F5  &kp F6  &trans                     &trans  &kp LS(LC(TAB))  &kp LC(TAB)        &trans  &trans         &trans
+            &trans  &kp F10  &kp LC(F1)  &kp F2  &kp F3  &trans  &none      &none   &trans  &kp LA(LEFT)     &kp LA(RIGHT)      &trans  &trans         &trans
                                                 &trans  &trans  &trans     &trans  &trans  &none
             >;
         };
@@ -251,9 +251,9 @@
         scroll_ver_mac {
             display-name = "SCROLL_VER_MAC";
             bindings = <
-            &none  &kp F12  &kp F7      &kp F8  &kp F9  &trans                     &none   &kp LG(PAGE_UP)  &kp LG(PAGE_DOWN)  &none   &kp LS(LG(NUMBER_4))  &none
-            &none  &kp F11  &kp F4      &kp F5  &kp F6  &trans                     &trans  &kp LS(LC(TAB))  &kp LC(TAB)        &trans  &trans                &none
-            &none  &kp F10  &kp LG(F1)  &kp F2  &kp F3  &trans  &none      &none   &trans  &kp LG(LEFT)     &kp LG(RIGHT)      &trans  &trans                &none
+            &trans  &kp F12  &kp F7      &kp F8  &kp F9  &trans                     &none   &kp LG(PAGE_UP)  &kp LG(PAGE_DOWN)  &none   &kp LS(LG(NUMBER_4))  &trans
+            &trans  &kp F11  &kp F4      &kp F5  &kp F6  &trans                     &trans  &kp LS(LC(TAB))  &kp LC(TAB)        &trans  &trans                &trans
+            &trans  &kp F10  &kp LG(F1)  &kp F2  &kp F3  &trans  &none      &none   &trans  &kp LG(LEFT)     &kp LG(RIGHT)      &trans  &trans                &trans
                                                 &trans  &trans  &trans     &trans  &trans  &none
             >;
         };
@@ -261,9 +261,9 @@
         scroll_hor_win {
             display-name = "SCROLL_HOR_WIN";
             bindings = <
-            &none  &kp F12  &kp F7      &kp F8  &kp F9  &trans                     &none   &kp LC(PAGE_UP)  &kp LC(PAGE_DOWN)  &trans  &kp LS(LG(S))  &none
-            &none  &kp F11  &kp F4      &kp F5  &kp F6  &trans                     &trans  &kp LS(LC(TAB))  &kp LC(TAB)        &trans  &trans         &none
-            &none  &kp F10  &kp LC(F1)  &kp F2  &kp F3  &trans  &none      &none   &trans  &kp LA(LEFT)     &kp LA(RIGHT)      &trans  &trans         &none
+            &trans  &kp F12  &kp F7      &kp F8  &kp F9  &trans                     &none   &kp LC(PAGE_UP)  &kp LC(PAGE_DOWN)  &trans  &kp LS(LG(S))  &trans
+            &trans  &kp F11  &kp F4      &kp F5  &kp F6  &trans                     &trans  &kp LS(LC(TAB))  &kp LC(TAB)        &trans  &trans         &trans
+            &trans  &kp F10  &kp LC(F1)  &kp F2  &kp F3  &trans  &none      &none   &trans  &kp LA(LEFT)     &kp LA(RIGHT)      &trans  &trans         &trans
                                                 &trans  &trans  &trans     &trans  &trans  &none
             >;
         };
@@ -271,9 +271,9 @@
         scroll_hor_mac {
             display-name = "SCROLL_HOR_MAC";
             bindings = <
-            &none  &kp F12  &kp F7      &kp F8  &kp F9  &trans                     &none   &kp LG(PAGE_UP)  &kp LG(PAGE_DOWN)  &none   &kp LS(LG(NUMBER_4))  &none
-            &none  &kp F11  &kp F4      &kp F5  &kp F6  &trans                     &trans  &kp LS(LC(TAB))  &kp LC(TAB)        &trans  &trans                &none
-            &none  &kp F10  &kp LG(F1)  &kp F2  &kp F3  &trans  &none      &none   &trans  &kp LG(LEFT)     &kp LG(RIGHT)      &trans  &trans                &none
+            &trans  &kp F12  &kp F7      &kp F8  &kp F9  &trans                     &none   &kp LG(PAGE_UP)  &kp LG(PAGE_DOWN)  &none   &kp LS(LG(NUMBER_4))  &trans
+            &trans  &kp F11  &kp F4      &kp F5  &kp F6  &trans                     &trans  &kp LS(LC(TAB))  &kp LC(TAB)        &trans  &trans                &trans
+            &trans  &kp F10  &kp LG(F1)  &kp F2  &kp F3  &trans  &none      &none   &trans  &kp LG(LEFT)     &kp LG(RIGHT)      &trans  &trans                &trans
                                                 &trans  &trans  &trans     &trans  &trans  &none
             >;
         };
@@ -281,9 +281,9 @@
         gesture_win {
             display-name = "GESTURE_WIN";
             bindings = <
-            &none  &trans  &trans  &trans  &trans  &trans                     &trans  &trans  &trans  &trans  &trans  &none
-            &none  &trans  &trans  &trans  &trans  &trans                     &trans  &trans  &trans  &trans  &trans  &none
-            &none  &trans  &trans  &trans  &trans  &trans  &none      &none   &trans  &trans  &trans  &trans  &trans  &none
+            &trans  &trans  &trans  &trans  &trans  &trans                     &trans  &trans  &trans  &trans  &trans  &trans
+            &trans  &trans  &trans  &trans  &trans  &trans                     &trans  &trans  &trans  &trans  &trans  &trans
+            &trans  &trans  &trans  &trans  &trans  &trans  &none      &none   &trans  &trans  &trans  &trans  &trans  &trans
                                            &trans  &trans  &trans     &trans  &trans  &none
             >;
         };
@@ -291,9 +291,9 @@
         gesture_mac {
             display-name = "GESTURE_MAC";
             bindings = <
-            &none  &trans  &trans  &trans  &trans  &trans                     &trans  &trans  &trans  &trans  &trans  &none
-            &none  &trans  &trans  &trans  &trans  &trans                     &trans  &trans  &trans  &trans  &trans  &none
-            &none  &trans  &trans  &trans  &trans  &trans  &none      &none   &trans  &trans  &trans  &trans  &trans  &none
+            &trans  &trans  &trans  &trans  &trans  &trans                     &trans  &trans  &trans  &trans  &trans  &trans
+            &trans  &trans  &trans  &trans  &trans  &trans                     &trans  &trans  &trans  &trans  &trans  &trans
+            &trans  &trans  &trans  &trans  &trans  &trans  &none      &none   &trans  &trans  &trans  &trans  &trans  &trans
                                            &trans  &trans  &trans     &trans  &trans  &none
             >;
         };
@@ -301,9 +301,9 @@
         win_scroll_dir {
             display-name = "WIN_SCROLL_DIR";
             bindings = <
-            &none  &trans  &trans  &trans  &trans  &trans                     &trans  &trans  &trans  &trans  &trans  &none
-            &none  &trans  &trans  &trans  &trans  &trans                     &trans  &trans  &trans  &trans  &trans  &none
-            &none  &trans  &trans  &trans  &trans  &trans  &none      &none   &trans  &trans  &trans  &trans  &trans  &none
+            &trans  &trans  &trans  &trans  &trans  &trans                     &trans  &trans  &trans  &trans  &trans  &trans
+            &trans  &trans  &trans  &trans  &trans  &trans                     &trans  &trans  &trans  &trans  &trans  &trans
+            &trans  &trans  &trans  &trans  &trans  &trans  &none      &none   &trans  &trans  &trans  &trans  &trans  &trans
                                            &trans  &trans  &trans     &trans  &trans  &none
             >;
         };

@@ -105,7 +105,18 @@ def main():
     for layer in layers:
         keys = bindings(right, layer, "bindings", "#binding-cells")
         assert len(keys) == 44, layer.name
-        for idx in (0, 11, 12, 23, 24, 30, 31, 37, 43):
+        if layer.name in ("default_win", "default_mac"):
+            mac = layer.name == "default_mac"
+            expected = {0: ("kp", [0x70029]), 11: ("kp", [0x7002a]),
+                        12: ("kp", [0x700e3 if mac else 0x700e0]), 23: ("kp", [0x70028]),
+                        24: ("lt", [3 if mac else 2, 0x70091]),
+                        37: ("lt", [7 if mac else 6, 0x70090])}
+            for idx, (label, params) in expected.items():
+                assert keys[idx] == (right.label2node[label], params), (layer.name, idx)
+        else:
+            for idx in (0, 11, 12, 23, 24, 37):
+                assert keys[idx][0] is right.label2node["trans"], (layer.name, idx)
+        for idx in (30, 31, 43):
             assert keys[idx][0] is right.label2node["none"], (layer.name, idx)
     positions = {c.name: c.props["key-positions"].to_nums()
                  for c in right.get_node("/combos").nodes.values()}
