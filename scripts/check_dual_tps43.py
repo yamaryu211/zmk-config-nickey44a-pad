@@ -16,6 +16,7 @@ def main():
     parser.add_argument("--zephyr-base", required=True, type=Path)
     parser.add_argument("--left-build", required=True, type=Path)
     parser.add_argument("--right-build", required=True, type=Path)
+    parser.add_argument("--aml", action="store_true", help="expect the optional auto mouse layer")
     args = parser.parse_args()
     sys.path.insert(0, str(args.zephyr_base / "scripts/dts/python-devicetree/src"))
     from devicetree import dtlib
@@ -97,8 +98,17 @@ def main():
             expected = [("pinch_zoom", [mods | 0x7002d, mods | 0x7002e])]
             if mode is mac:
                 expected.append(("zip_scroll_transform", [6]))
-            expected.extend([("tps43_orientation", [7]), (inertia, []), ("auto_mouse", [8, 30000])])
+            expected.extend([("tps43_orientation", [7]), (inertia, [])])
+            if args.aml:
+                expected.append(("auto_mouse", [8, 30000]))
             assert [(n.name, params) for n, params in chain] == expected
+
+    mouse_keys = right.label2node["mkp_input_listener"]
+    if args.aml:
+        assert bindings(right, mouse_keys, "input-processors", "#input-processor-cells") == [
+            (right.label2node["zip_temp_layer"], [8, 250])]
+    else:
+        assert "input-processors" not in mouse_keys.props
 
     layers = list(right.get_node("/keymap").nodes.values())
     assert len(layers) == 17

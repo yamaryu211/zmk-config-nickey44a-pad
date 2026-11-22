@@ -20,7 +20,9 @@
     acceleration-exponent = <2>;
 };
 
+#if NICKEY_AUTO_MOUSE_LAYER
 &mkp_input_listener { input-processors = <&zip_temp_layer L_AML 250>; };
+#endif
 
 &mt {
     flavor = "balanced";

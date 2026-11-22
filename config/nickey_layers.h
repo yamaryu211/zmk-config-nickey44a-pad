@@ -1,5 +1,8 @@
 #pragma once
 
+// Set to 1 to activate AML from either trackpad or mouse-key presses.
+#define NICKEY_AUTO_MOUSE_LAYER 0
+
 #define L_DEFAULT_WIN 0
 #define L_DEFAULT_MAC 1
 #define L_NUM_WIN 2
