@@ -1,0 +1,2 @@
+/* Include this trial overlay before nickey44a_r to extend both listener chains. */
+#define NICKEY_TPS43_ACCEL

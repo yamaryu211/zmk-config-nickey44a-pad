@@ -5,7 +5,12 @@
 #define PAD_AML
 #endif
 #define PAD_ORIENTATION (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)
-#define PAD_MOTION <&tps43_orientation PAD_ORIENTATION>, <&zip_scroll_scaler 1 20>, \
+#ifdef NICKEY_TPS43_ACCEL
+#define CURSOR_ACCEL <&PAD_ACCEL>,
+#else
+#define CURSOR_ACCEL
+#endif
+#define PAD_MOTION <&tps43_orientation PAD_ORIENTATION>, CURSOR_ACCEL <&zip_scroll_scaler 1 20>, \
                    <&PAD_MOUSE>, <&PAD_SCROLL>, \
                    <&PAD_INERTIA>, <&tps43_ignore_contact> PAD_AML
 #define PAD_TAP_DRAG <&PAD_DRAG 300 250>
@@ -17,6 +22,7 @@ mac {
                        <&zip_scroll_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>,
                        PAD_MOTION;
 };
+#undef CURSOR_ACCEL
 #undef PAD_AML
 #undef PAD_MOTION
 #undef PAD_TAP_DRAG

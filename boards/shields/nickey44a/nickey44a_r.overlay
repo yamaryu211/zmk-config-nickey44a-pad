@@ -27,6 +27,18 @@
         y-codes = <INPUT_REL_Y INPUT_REL_WHEEL>;
     };
 
+#ifdef NICKEY_TPS43_ACCEL
+    left_accel: left_accel {
+        compatible = "zmk,input-processor-tps43-accel";
+        #input-processor-cells = <0>;
+    };
+
+    right_accel: right_accel {
+        compatible = "zmk,input-processor-tps43-accel";
+        #input-processor-cells = <0>;
+    };
+#endif
+
     left_tap_drag: left_tap_drag {
         compatible = "zmk,input-processor-tap-drag";
         #input-processor-cells = <2>;
@@ -87,12 +99,14 @@
     left_tps43_listener: left_tps43_listener {
         compatible = "zmk,input-listener";
         device = <&left_tps43_split>;
+#define PAD_ACCEL left_accel
 #define PAD_MOUSE left_mouse
 #define PAD_DRAG left_tap_drag
 #define PAD_SCROLL left_scroll
 #define PAD_INERTIA left_tps43_inertia
 #include "tps43-listener.dtsi"
 #undef PAD_INERTIA
+#undef PAD_ACCEL
 #undef PAD_MOUSE
 #undef PAD_DRAG
 #undef PAD_SCROLL
@@ -101,12 +115,14 @@
     tps43_listener: tps43_listener {
         compatible = "zmk,input-listener";
         device = <&tps43>;
+#define PAD_ACCEL right_accel
 #define PAD_MOUSE right_mouse
 #define PAD_DRAG right_tap_drag
 #define PAD_SCROLL right_scroll
 #define PAD_INERTIA tps43_touch_inertia
 #include "tps43-listener.dtsi"
 #undef PAD_INERTIA
+#undef PAD_ACCEL
 #undef PAD_MOUSE
 #undef PAD_DRAG
 #undef PAD_SCROLL

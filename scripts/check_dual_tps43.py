@@ -17,6 +17,7 @@ def main():
     parser.add_argument("--left-build", required=True, type=Path)
     parser.add_argument("--right-build", required=True, type=Path)
     parser.add_argument("--no-pinch", action="store_true", help="check the sensor A/B build")
+    parser.add_argument("--accel", action="store_true")
     parser.add_argument("--aml", action="store_true", help="expect the optional auto mouse layer")
     args = parser.parse_args()
     sys.path.insert(0, str(args.zephyr_base / "scripts/dts/python-devicetree/src"))
@@ -127,7 +128,10 @@ def main():
             expected = [(f"{side}_tap_drag", [300, 250]), ("pinch_zoom", [mods | 0x7002d, mods | 0x7002e])]
             if mode is mac:
                 expected.append(("zip_scroll_transform", [6]))
-            expected.extend([("tps43_orientation", [7]), ("zip_scroll_scaler", [1, 20]), *filters,
+            expected.append(("tps43_orientation", [7]))
+            if args.accel:
+                expected.append((f"{side}_accel", []))
+            expected.extend([("zip_scroll_scaler", [1, 20]), *filters,
                              (inertia, []), ("tps43_ignore_contact", [])])
             if args.aml:
                 expected.append(("auto_mouse", [8, 30000]))

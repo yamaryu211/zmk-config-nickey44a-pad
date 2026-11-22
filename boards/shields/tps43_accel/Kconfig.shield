@@ -1,0 +1,2 @@
+config SHIELD_TPS43_ACCEL
+    def_bool $(shields_list_contains,tps43_accel)
