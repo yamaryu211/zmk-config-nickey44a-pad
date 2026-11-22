@@ -1,0 +1,38 @@
+--- a/tps43.h
++++ b/tps43.h
+@@ -271,6 +271,7 @@
+     bool drag_active;
+     bool suspended;
+     bool touching;
++    uint8_t peak_fingers;
+     int64_t last_three_finger_swipe_ms;
+ };
+ 
+--- a/tps43.c
++++ b/tps43.c
+@@ -425,6 +425,8 @@
+     int16_t rel_x = (int16_t)((touch_data[5] << 8) | touch_data[6]);
+     int16_t rel_y = (int16_t)((touch_data[7] << 8) | touch_data[8]);
+ 
++    /* A remaining finger after a scroll or pinch must not move the pointer. */
++    drv_data->peak_fingers = num_fingers ? MAX(drv_data->peak_fingers, num_fingers) : 0;
+     bool is_touching = (num_fingers > 0);
+     if (is_touching != drv_data->touching) {
+         drv_data->touching = is_touching;
+@@ -504,7 +506,7 @@
+             LOG_INF("Zooming %d, rel_x=%d", zoom_delta, rel_x);
+             input_report_rel(dev, INPUT_REL_MISC, zoom_delta, true, K_FOREVER);
+             is_zoom_active = false;
+-        } else {
++        } else if (num_fingers == 1 && drv_data->peak_fingers == 1) {
+             // Normal cursor movement
+             if (rel_x != 0 ) {
+                 int32_t scaled_x = ((int32_t)rel_x * config->sensitivity) / 100;
+@@ -544,6 +546,7 @@
+ 
+     drv_data->device_ready = false;
+     drv_data->initialized = false;
++    drv_data->peak_fingers = 0;
+     drv_data->drag_active = false;
+ 
+     LOG_INF("Values reset");
