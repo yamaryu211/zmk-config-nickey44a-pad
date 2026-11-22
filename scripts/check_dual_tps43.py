@@ -18,6 +18,7 @@ def main():
     parser.add_argument("--right-build", required=True, type=Path)
     parser.add_argument("--no-pinch", action="store_true", help="check the sensor A/B build")
     parser.add_argument("--accel", action="store_true")
+    parser.add_argument("--driver", choices=("standard", "guard", "edge"), default="standard")
     parser.add_argument("--aml", action="store_true", help="expect the optional auto mouse layer")
     args = parser.parse_args()
     sys.path.insert(0, str(args.zephyr_base / "scripts/dts/python-devicetree/src"))
@@ -35,6 +36,10 @@ def main():
 
     lc, rc = config(args.left_build), config(args.right_build)
     for cfg, build in ((lc, args.left_build), (rc, args.right_build)):
+        for shield, expected in (("TPS43_NO_PINCH", args.no_pinch),
+                                 ("TPS43_GUARD", args.driver == "guard"),
+                                 ("TPS43_EDGE", args.driver == "edge")):
+            assert (cfg.get("CONFIG_SHIELD_" + shield) == "y") == expected, shield
         for name in ("GPIO", "I2C", "INPUT", "ZMK_POINTING", "INPUT_TPS43",
                      "ZMK_INPUT_SPLIT", "ZMK_SPLIT", "ZMK_SLEEP",
                      "ZMK_BATTERY_REPORTING", "ZMK_CUSTOM_SETTINGS_SPLIT_RPC_RELAY",
@@ -170,7 +175,8 @@ def main():
     assert positions == {"tab": [14, 15], "shift_tab": [15, 16], "Esc": [1, 2],
                          "middle_click": [19, 20], "caps_lock": [13, 14],
                          "middle_click_alt": [34, 35]}
-    print("PASS: both firmware images, pins, taps, scroll, zoom and split routing")
+    print(f"PASS: both firmware images, pins, taps, scroll and split routing "
+          f"(pinch={'off' if args.no_pinch else 'on'}, acceleration={args.accel}, driver={args.driver})")
     print("PASS: Windows/Mac shortcuts and scroll transforms on both pads")
     print("PASS: DYA Studio USB/BLE configuration, RPC features and per-pad filters")
     print("PASS: 17 layers, 44 bindings each, unused positions and six combos")

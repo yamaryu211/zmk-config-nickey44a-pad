@@ -21,6 +21,9 @@ enum tap_drag_phase {
 struct tap_drag_data {
     enum tap_drag_phase phase;
     int64_t deadline;
+#if IS_ENABLED(CONFIG_SHIELD_TPS43_EDGE)
+    bool edge_scroll;
+#endif
     struct k_work_delayable drop_work;
     const struct device *dev;
 };
@@ -81,6 +84,28 @@ static void contact_changed(struct tap_drag_data *data, bool down, uint32_t grac
     }
 }
 
+#if IS_ENABLED(CONFIG_SHIELD_TPS43_EDGE)
+static void apply_edge_scroll(struct tap_drag_data *data, struct input_event *event) {
+    if (event->type == INPUT_EV_KEY && event->code == INPUT_BTN_TOUCH) {
+        data->edge_scroll = false;
+    } else if (event->type == INPUT_EV_ABS && event->code == INPUT_ABS_Y) {
+        /* After Nickey's orientation correction, low sensor Y is the right edge.
+         * An armed or resumed tap-drag always owns its second contact. */
+        data->edge_scroll = data->phase == IDLE && event->value >= 0 && event->value < 60;
+    } else if (data->edge_scroll && event->type == INPUT_EV_REL) {
+        if (event->code == INPUT_REL_X) {
+            /* The shared orientation transform maps native HWHEEL to host WHEEL. */
+            event->code = INPUT_REL_HWHEEL;
+        } else if (event->code == INPUT_REL_Y) {
+            /* Keep the driver's end-of-frame sync without sending sideways movement. */
+            event->value = 0;
+        } else {
+            data->edge_scroll = false;
+        }
+    }
+}
+#endif
+
 static int tap_drag(const struct device *dev, struct input_event *event,
                     uint32_t tapping_term_ms, uint32_t grace_ms,
                     struct zmk_input_processor_state *state) {
@@ -91,6 +116,12 @@ static int tap_drag(const struct device *dev, struct input_event *event,
         end_gesture(waiting_pad);
     }
 
+#if IS_ENABLED(CONFIG_SHIELD_TPS43_EDGE)
+    apply_edge_scroll(data, event);
+    if (event->type == INPUT_EV_ABS && event->code == INPUT_ABS_Y) {
+        return ZMK_INPUT_PROC_STOP;
+    }
+#endif
     if (event->type == INPUT_EV_KEY) {
         switch (event->code) {
         case INPUT_BTN_TOUCH:

@@ -1,0 +1,58 @@
+--- a/tps43.h
++++ b/tps43.h
+@@ -272,6 +272,7 @@
+     bool suspended;
+     bool touching;
+     uint8_t peak_fingers;
++    uint16_t reported_y_resolution;
+     int64_t last_three_finger_swipe_ms;
+ };
+ 
+--- a/tps43.c
++++ b/tps43.c
+@@ -401,7 +401,7 @@
+     k_sem_take(&drv_data->lock, K_FOREVER);
+ 
+     /*
+-     * Read the whole contiguous block from GESTURE_EVENTS_0 through REL_Y in a
++     * Read the whole contiguous block from GESTURE_EVENTS_0 through ABS_Y in a
+      * single I2C transaction instead of issuing several independent reads.
+      * This is much cheaper on the bus. Byte offsets into the buffer:
+      *   [0] GESTURE_EVENTS_0   (0x000D)
+@@ -412,7 +412,7 @@
+      *   [5..6] REL_X           (0x0012, big-endian)
+      *   [7..8] REL_Y           (0x0014, big-endian)
+      */
+-    uint8_t touch_data[(TPS43_REG_REL_Y + 2) - TPS43_REG_GESTURE_EVENTS_0];
++    uint8_t touch_data[(TPS43_REG_ABS_Y + 2) - TPS43_REG_GESTURE_EVENTS_0];
+     ret = read_sequence_registers(dev, TPS43_REG_GESTURE_EVENTS_0, touch_data,
+                                   sizeof(touch_data));
+     if (ret < 0) {
+@@ -432,6 +432,14 @@
+         drv_data->touching = is_touching;
+         LOG_INF("Touch state changed: %s", is_touching ? "down" : "up");
+         input_report_key(dev, INPUT_BTN_TOUCH, is_touching ? 1 : 0, true, K_FOREVER);
++        /* Send the starting Y coordinate once, normalized to thousandths of the pad. */
++        if (num_fingers == 1 && drv_data->reported_y_resolution > 0) {
++            uint16_t abs_y = sys_get_be16(&touch_data[TPS43_REG_ABS_Y - TPS43_REG_GESTURE_EVENTS_0]);
++            if (abs_y <= drv_data->reported_y_resolution) {
++                input_report_abs(dev, INPUT_ABS_Y, (uint32_t)abs_y * 1000 / drv_data->reported_y_resolution,
++                                 false, K_FOREVER);
++            }
++        }
+     }
+ 
+     if (gestures_events[0] != 0 || gestures_events[1] != 0) {
+@@ -1039,6 +1047,12 @@
+         return ret;
+     }
+ 
++    /* An unavailable resolution only disables edge recognition. Normal gestures still work. */
++    drv_data->reported_y_resolution = 0;
++    uint16_t y_resolution;
++    if (tps43_i2c_read_reg16(dev, TPS43_REG_Y_RESOLUTION, &y_resolution) == 0) {
++        drv_data->reported_y_resolution = y_resolution;
++    }
+     drv_data->device_ready = true;
+ 
+     return 0;

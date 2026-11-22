@@ -69,12 +69,12 @@ Forkの初回設定や詳しい編集手順は、[キーマップの変更方法
 cd ../zmk-workspace
 nix develop
 just init config/zmk-config-nickey44a-pad  # 初回、または別のキーボードから切り替えるとき
-just build nickey44a
+just build 'nickey44a_[lr]$'
 ```
 
-以降は `just build nickey44a` で左右を再ビルドできる。片側だけなら `just build nickey44a_l` または `just build nickey44a_r`。UF2はワークスペースの `firmware/zmk-config-nickey44a-pad/` に出力される。
+このコマンドは基準版の左右をビルドする。片側だけなら `just build 'nickey44a_l$'` または `just build 'nickey44a_r$'`。UF2はワークスペースの `firmware/zmk-config-nickey44a-pad/` に出力される。
 
-既にこの Nickey を選択済みのワークスペースを旧版から移行する場合は、`nix develop` 内で次を実行する。設定リセット用を含む3つの UF2 を新しい依存関係でビルドする。
+既にこの Nickey を選択済みのワークスペースを旧版から移行する場合は、`nix develop` 内で次を実行する。設定リセット用とTPS43比較用を含む全 UF2 を新しい依存関係でビルドする。
 
 ```sh
 just update
@@ -82,6 +82,8 @@ just build all -p
 ```
 
 書き込みは片側ずつ行う。左手側だけを USB 接続してブートローダーモードにし、`just flash nickey44a_l` を実行する。左を外し、右手側で同じ操作をして `just flash nickey44a_r` を実行する。
+
+[TPS43比較用ファームウェアの組み合わせと実機での試し方](docs/dual-tps43.md#tps43の比較用ファームウェア)
 
 ### GitHub Actions でビルド
 

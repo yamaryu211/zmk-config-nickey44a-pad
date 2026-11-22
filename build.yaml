@@ -46,3 +46,10 @@ include:
     shield: tps43_accel nickey44a_r rgbled_adapter tps43_guard
     snippet: studio-rpc-usb-uart
     artifact-name: finger_guard_r
+  - board: xiao_ble//zmk
+    shield: nickey44a_l rgbled_adapter tps43_edge
+    artifact-name: edge_scroll_l
+  - board: xiao_ble//zmk
+    shield: tps43_accel nickey44a_r rgbled_adapter tps43_edge
+    snippet: studio-rpc-usb-uart
+    artifact-name: edge_scroll_r
