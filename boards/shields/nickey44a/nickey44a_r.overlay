@@ -27,6 +27,24 @@
         y-codes = <INPUT_REL_Y INPUT_REL_WHEEL>;
     };
 
+    left_tap_drag: left_tap_drag {
+        compatible = "zmk,input-processor-tap-drag";
+        #input-processor-cells = <2>;
+    };
+
+    right_tap_drag: right_tap_drag {
+        compatible = "zmk,input-processor-tap-drag";
+        #input-processor-cells = <2>;
+    };
+
+    /* Tap-drag and inertia observe contact before the mouse listener ignores it. */
+    tps43_ignore_contact: tps43_ignore_contact {
+        compatible = "zmk,input-processor-code-mapper";
+        #input-processor-cells = <0>;
+        type = <INPUT_EV_KEY>;
+        map = <INPUT_BTN_TOUCH INPUT_KEY_RESERVED>;
+    };
+
     pinch_zoom: pinch_zoom {
         compatible = "zmk,input-processor-pinch-zoom";
         #input-processor-cells = <2>;
@@ -70,11 +88,13 @@
         compatible = "zmk,input-listener";
         device = <&left_tps43_split>;
 #define PAD_MOUSE left_mouse
+#define PAD_DRAG left_tap_drag
 #define PAD_SCROLL left_scroll
 #define PAD_INERTIA left_tps43_inertia
 #include "tps43-listener.dtsi"
 #undef PAD_INERTIA
 #undef PAD_MOUSE
+#undef PAD_DRAG
 #undef PAD_SCROLL
     };
 
@@ -82,11 +102,13 @@
         compatible = "zmk,input-listener";
         device = <&tps43>;
 #define PAD_MOUSE right_mouse
+#define PAD_DRAG right_tap_drag
 #define PAD_SCROLL right_scroll
 #define PAD_INERTIA tps43_touch_inertia
 #include "tps43-listener.dtsi"
 #undef PAD_INERTIA
 #undef PAD_MOUSE
+#undef PAD_DRAG
 #undef PAD_SCROLL
     };
 };

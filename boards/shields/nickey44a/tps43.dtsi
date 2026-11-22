@@ -44,8 +44,11 @@
         rdy-gpios = <&gpio0 15 GPIO_ACTIVE_HIGH>;
 
         single-tap;
+        tap-time = <150>;
         two-finger-tap;
         scroll;
+        scroll-initial-distance = <24>;
+        scroll-angle = <35>;
         zoom;
         zoom-consecutive-distance = <80>;
         /* Physical right -> negative HWHEEL after orientation (natural scrolling). */
@@ -54,7 +57,8 @@
         filter-settings = <0x0B>;
         filter-dynamic-bottom = <5>;
         sensitivity = <100>;
-        scroll-sensitivity = <5>;
+        /* Keep raw wheel deltas. The central accumulates 1/20 wheel units. */
+        scroll-sensitivity = <100>;
         enable-power-management;
         /* Controller settings used when the listener's correction was measured. */
         switch-xy;

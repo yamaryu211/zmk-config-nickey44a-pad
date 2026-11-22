@@ -1,0 +1,3 @@
+description: Tap-drag with a double-tap interval and a finger repositioning interval (ms)
+compatible: "zmk,input-processor-tap-drag"
+include: ip_two_param.yaml

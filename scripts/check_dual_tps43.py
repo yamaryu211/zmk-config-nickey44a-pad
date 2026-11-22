@@ -87,12 +87,22 @@ def main():
                         "enable-power-management", "switch-xy", "invert-x", "invert-scroll-y"):
             assert setting in pad.props, setting
         assert not {"swipes", "press-and-hold", "invert-scroll-x"} & pad.props.keys()
+        assert pad.props["tap-time"].to_num() == 150
+        assert pad.props["scroll-initial-distance"].to_num() == 24
+        assert pad.props["scroll-angle"].to_num() == 35
+        assert pad.props["scroll-sensitivity"].to_num() == 100
 
     ls = left.label2node["left_tps43_split"]
     rs = right.label2node["left_tps43_split"]
     assert ls.props["reg"].to_num() == rs.props["reg"].to_num() == 0
     assert ls.props["device"].to_node() is left.label2node["tps43"]
     assert "device" not in rs.props and "input-processors" not in ls.props
+    contact = right.label2node["tps43_ignore_contact"].props
+    assert contact["compatible"].to_string() == "zmk,input-processor-code-mapper"
+    assert contact["type"].to_num() == 1  # INPUT_EV_KEY
+    assert contact["map"].to_nums() == [0x14a, 0]  # BTN_TOUCH -> KEY_RESERVED only
+    scaler = right.label2node["zip_scroll_scaler"].props
+    assert "track-remainders" in scaler and set(scaler["codes"].to_nums()) == {6, 8}
     for side, listener, device, inertia in (
         ("left", "left_tps43_listener", rs, "left_tps43_inertia"),
         ("right", "tps43_listener", right.label2node["tps43"], "tps43_touch_inertia"),
@@ -106,15 +116,17 @@ def main():
             assert props["y-codes"].to_nums() == [y_code]
             filters.append((name, []))
         node = right.label2node[listener]
+        assert right.label2node[inertia].props["touch-code"].to_num() == 0x14a
         assert node.props["device"].to_node() is device
         mac = node.nodes["mac"]
         assert mac.props["layers"].to_nums() == [1]
         for mode, mods in ((node, 0x01000000), (mac, 0x08000000)):
             chain = bindings(right, mode, "input-processors", "#input-processor-cells")
-            expected = [("pinch_zoom", [mods | 0x7002d, mods | 0x7002e])]
+            expected = [(f"{side}_tap_drag", [300, 250]), ("pinch_zoom", [mods | 0x7002d, mods | 0x7002e])]
             if mode is mac:
                 expected.append(("zip_scroll_transform", [6]))
-            expected.extend([("tps43_orientation", [7]), *filters, (inertia, [])])
+            expected.extend([("tps43_orientation", [7]), ("zip_scroll_scaler", [1, 20]), *filters,
+                             (inertia, []), ("tps43_ignore_contact", [])])
             if args.aml:
                 expected.append(("auto_mouse", [8, 30000]))
             assert [(n.name, params) for n, params in chain] == expected

@@ -5,16 +5,19 @@
 #define PAD_AML
 #endif
 #define PAD_ORIENTATION (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)
-#define PAD_MOTION <&tps43_orientation PAD_ORIENTATION>, <&PAD_MOUSE>, <&PAD_SCROLL>, \
-                   <&PAD_INERTIA> PAD_AML
-input-processors = <&pinch_zoom LC(MINUS) LC(EQUAL)>, PAD_MOTION;
+#define PAD_MOTION <&tps43_orientation PAD_ORIENTATION>, <&zip_scroll_scaler 1 20>, \
+                   <&PAD_MOUSE>, <&PAD_SCROLL>, \
+                   <&PAD_INERTIA>, <&tps43_ignore_contact> PAD_AML
+#define PAD_TAP_DRAG <&PAD_DRAG 300 250>
+input-processors = PAD_TAP_DRAG, <&pinch_zoom LC(MINUS) LC(EQUAL)>, PAD_MOTION;
 
 mac {
     layers = <L_DEFAULT_MAC>;
-    input-processors = <&pinch_zoom LG(MINUS) LG(EQUAL)>,
+    input-processors = PAD_TAP_DRAG, <&pinch_zoom LG(MINUS) LG(EQUAL)>,
                        <&zip_scroll_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>,
                        PAD_MOTION;
 };
 #undef PAD_AML
 #undef PAD_MOTION
+#undef PAD_TAP_DRAG
 #undef PAD_ORIENTATION
