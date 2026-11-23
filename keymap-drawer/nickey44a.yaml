@@ -449,7 +449,7 @@ layers:
   - {t: ▽, type: trans}
   - OUT TOG
   - {type: held}
-  - ''
+  - '&studio_unlock'
   SCROLL_VER_WIN:
   - {t: ▽, type: trans}
   - F12

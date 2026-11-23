@@ -2,7 +2,7 @@
 
 ## キーの対応
 
-移植元は [torabo-tsuki LP の `yamaryu211_main`（e45ba15）](https://github.com/yamaryu211/zmk-keyboard-torabo-tsuki-lp/blob/e45ba157f6ef610b51c636ebd35506437945f9b1/config/keymap.keymap) の S 配列。上3段は Q〜T・Y〜P の列を基準に合わせた。Bの右とNの左、右親指列の右端は全レイヤーで無割り当て。torabo の3段目中央2キーは除外した。
+移植元は [torabo-tsuki LP の `yamaryu211_main`（e45ba15）](https://github.com/yamaryu211/zmk-keyboard-torabo-tsuki-lp/blob/e45ba157f6ef610b51c636ebd35506437945f9b1/config/keymap.keymap) の S 配列。上3段は Q〜T・Y〜P の列を基準に合わせた。Bの右とNの左は全レイヤーで無割り当て。右親指列の右端はキーボード設定レイヤーでStudioのロックを解除する。torabo の3段目中央2キーは除外した。
 
 | 外側の列 | 左手 | 右手 |
 |---|---|---|
@@ -30,7 +30,8 @@ torabo の最下段12キーのうち、中央寄りの5キー（位置35〜39）
 | 設定で上から3段目の左端／右端を押す | 左側／右側をブートローダーモードにする |
 | 設定で H / J / K / L / 右隣のキー | BT 0 Windows / 1 Mac / 2 iPad / 3 iPhone / 4 iPad mini |
 | 設定で W / E | 現在の接続先にWindows / Mac配列を保存。USBでも使用可 |
-| 設定で Q / R | Studioロック解除 / USB・BLE出力切替 |
+| 設定で右親指列の右端、または Q | Studioロック解除 |
+| 設定で R | USB・BLE出力切替 |
 
 ## 左右共通のジェスチャー
 

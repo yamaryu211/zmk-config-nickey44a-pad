@@ -127,7 +127,9 @@ def main():
             for idx in (0, 11, 12, 23, 24, 37):
                 label = "bootloader" if layer.name == "kbd_setting" and idx in (24, 37) else "trans"
                 assert keys[idx] == (right.label2node[label], []), (layer.name, idx)
-        for idx in (30, 31, 43):
+        thumb = "studio_unlock" if layer.name == "kbd_setting" else "none"
+        assert keys[43] == (right.label2node[thumb], []), layer.name
+        for idx in (30, 31):
             assert keys[idx][0] is right.label2node["none"], (layer.name, idx)
     positions = {c.name: c.props["key-positions"].to_nums()
                  for c in right.get_node("/combos").nodes.values()}
